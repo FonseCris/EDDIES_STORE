@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="Icono logo">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eddie's Store</title>
+    <link rel="stylesheet" href="carrito.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Catálogo.html">Tienda</a></li>
+                <li><a href="Personalización.html">Personalización</a></li>
+                <li><a href="Promociones.html">Promociones</a></li>
+                <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
+
+            </ul>
+        </nav>
+        <div class="user-info" id="greeting"></div>
+        <div class="icons">
+            <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+            <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
+            <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
+        </div>
+    </header>
+    <main>
+        <section id="detalle-carrito">
+            <h2>Carrito de Compras</h2>
+            <ul id="productos-carrito">
+                <!-- Los productos seleccionados aparecerán aquí -->
+            </ul>
+            <div class="resumen">
+                <p>Total: <span id="total">COP 0</span></p>
+                <button id="finalizar-compra">Finalizar Compra</button>
+            </div>
+        </section>
+    </main>
+    <script src="carrito.js"></script>
+</body>
+</html>
