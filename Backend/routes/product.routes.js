@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// Importar el controlador completo
-const productController = require('../controllers/product.controller');
+const {
+  getAllProducts,
+  createProduct,
+  updateProduct
+} = require('../controllers/product.controller');
 
-// Rutas definidas usando el controlador directamente
-router.get('/', productController.getAllProducts);
-router.post('/', productController.createProduct);
-router.put('/:id', productController.updateProduct);
+router.get('/', getAllProducts);
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
 
 module.exports = router;
