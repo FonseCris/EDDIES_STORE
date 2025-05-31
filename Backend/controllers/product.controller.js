@@ -1,3 +1,5 @@
+const Product = require('../models/product.model');
+
 // ✅ Actualizar un producto por ID
 exports.updateProduct = async (req, res) => {
   try {
