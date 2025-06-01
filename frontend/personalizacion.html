@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Eddie's Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html" class="dropdown-toggle">Tienda</a></li>
+                <li><a href="Personalizacion.html">Personalización</a></li>
+                <li><a href="Promociones.html">Promociones</a></li>
+                <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
+            </ul>
+        </nav>
+        <div class="user-info" id="greeting"></div>
+        <div class="icons">
+            <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+            <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
+            <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="personalizacion">
+            <h1>Personaliza tu regalo</h1>
+            <form id="form-personalizacion">
+               <label for="nombre">Tu nombre:</label>
+               <input type="text" id="nombre" required>
+
+               <label for="producto">Tipo de regalo:</label>
+               <select id="producto" required>
+               <option value="Taza personalizada">Taza personalizada</option>
+               <option value="Camisa con frase">Camisa con frase</option>
+               <option value="Cojín con foto">Cojín con foto</option>
+               <option value="Otro">Otro</option>
+          </select>
+      <label for="mensaje">¿Qué deseas incluir en el diseño?</label>
+     <textarea id="mensaje" rows="4" required></textarea>
+
+  <button type="submit">Contactar al diseñador por WhatsApp</button>
+</form>
+
+        </section>
+    </main>
+
+    <!-- ✅ SCRIPT DE WHATSAPP -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const numeroDisenador = "573114538008"; // Tu número real
+    const form = document.getElementById("form-personalizacion");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const producto = document.getElementById("producto").value;
+      const mensaje = document.getElementById("mensaje").value.trim();
+
+      if (nombre && producto && mensaje) {
+        const texto = `Hola, soy ${nombre} y quiero personalizar un regalo.\nTipo de regalo: ${producto}\nDetalles del diseño: ${mensaje}`;
+        const url = `https://wa.me/${numeroDisenador}?text=${encodeURIComponent(texto)}`;
+        window.open(url, "_blank");
+      } else {
+        alert("Por favor, completa todos los campos.");
+      }
+    });
+  });
+</script>
+</body>
+</html>

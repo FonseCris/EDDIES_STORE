@@ -305,6 +305,7 @@ nav ul li a:hover {
 }
 
 /* Botón de agregar al carrito */
+/* Botón de agregar al carrito */
 .btn-carrito {
   background-color: #91ffda;
   color: #000000;
@@ -313,12 +314,135 @@ nav ul li a:hover {
   cursor: pointer;
   border-radius: 25px;
   font-size: 1em;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-carrito:hover {
-  background-color: #91ffda;
+  background-color: #6ff3c7; /* un tono un poco más fuerte */
+  transform: scale(1.05); /* efecto leve de agrandamiento */
 }
+/* Contenedor del carrito */
+#detalle-carrito {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Título del carrito */
+#detalle-carrito h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Lista de productos en el carrito */
+#productos-carrito {
+  list-style: none;
+  padding: 0;
+}
+
+#productos-carrito li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-producto {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Imagen del producto */
+.detalle-producto img {
+  width: 80px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Texto del producto */
+.detalle-producto h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff; /* blanco */
+}
+
+.detalle-producto p {
+  margin: 4px 0 0;
+  color: #dddddd; /* blanco suave */
+}
+
+
+/* Botón de eliminar producto */
+.btn-eliminar {
+  background-color: #ff7b7b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-eliminar:hover {
+  background-color: #e05252;
+}
+
+/* Resumen del total */
+.resumen {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+/* Botón Finalizar Compra */
+#finalizar-compra {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #91ffda;
+  color: #000000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#finalizar-compra:hover {
+  background-color: #6ff3c7;
+  transform: scale(1.05);
+}
+/* Descripción blanca de producto */
+.detalle-producto h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.detalle-producto p {
+  margin: 4px 0 0;
+  color: #dddddd;
+}
+
+.icono-carrito {
+  position: relative;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
@@ -728,4 +852,36 @@ nav ul li a.active {
   background-color: #ff0000;
 }
 
+.personalizacion {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.personalizacion form {
+  display: flex;
+  flex-direction: column;
+}
+
+.personalizacion label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.personalizacion input,
+.personalizacion select,
+.personalizacion textarea {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.personalizacion button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #25D366;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
 

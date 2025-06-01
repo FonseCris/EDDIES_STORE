@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="Icono logo">
+    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eddie's Store</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilo para el contador del carrito */
+        .carrito-icono {
+            position: relative;
+            display: inline-block;
+        }
+
+        .contador-carrito {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+            line-height: 1;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,16 +35,18 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="Catálogo.html">Tienda</a></li>
-                <li><a href="Personalización.html">Personalización</a></li>
+                <li><a href="catalogo.html">Tienda</a></li>
+                <li><a href="personalizacion.html">Personalización</a></li>
                 <li><a href="Promociones.html">Promociones</a></li>
                 <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
-
             </ul>
         </nav>
         <div class="user-info" id="greeting"></div>
         <div class="icons">
-            <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+            <a href="Carrito.html" class="carrito-icono">
+                <img src="./imagenes/Carrito.png" alt="Carrito">
+                <span id="contador-carrito" class="contador-carrito">0</span>
+            </a>
             <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
             <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
         </div>
@@ -57,6 +79,19 @@
             </div>
         </section>
     </main>
+    
+    <script>
+        // Actualiza contador de carrito al cargar
+        function actualizarContadorCarrito() {
+            const contador = document.getElementById("contador-carrito");
+            const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            if (contador) {
+                contador.textContent = carrito.length;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

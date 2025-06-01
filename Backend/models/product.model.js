@@ -8,4 +8,7 @@ const productSchema = new mongoose.Schema({
   categoria: { type: String }
 });
 
-module.exports = mongoose.models.Product || mongoose.model('Product', productSchema);
+// Previene error de modelo duplicado al recargar con nodemon
+const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+
+module.exports = Product;

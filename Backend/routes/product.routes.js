@@ -7,13 +7,13 @@ const {
   updateProduct
 } = require('../controllers/product.controller');
 
-// Obtener todos los productos
+// ✅ GET - Obtener todos los productos
 router.get('/', getAllProducts);
 
-// Crear un nuevo producto
+// ✅ POST - Crear un nuevo producto
 router.post('/', createProduct);
 
-// Actualizar un producto por ID
+// ✅ PUT - Actualizar un producto por ID
 router.put('/:id', updateProduct);
 
 module.exports = router;

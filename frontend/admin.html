@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración - EDDIE'S STORE</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    table {
+      width: 90%;
+      margin: 2rem auto;
+      border-collapse: collapse;
+      background-color: #ffffffcc;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #000000;
+      color: white;
+    }
+
+    select {
+      padding: 5px;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="imagenes/Logo blanco.png" alt="Logo" width="100" height="50" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="catalogo.html">Tienda</a></li>
+        <li><a href="personalizacion.html">Personalización</a></li>
+        <li><a href="Promociones.html">Promociones</a></li>
+        <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Órdenes Recibidas</h1>
+    <table id="tabla-ordenes">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Productos</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th>Cambiar Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Se llenará dinámicamente -->
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    async function cargarOrdenes() {
+      const res = await fetch("http://localhost:3000/api/ordenes");
+      const ordenes = await res.json();
+
+      const tbody = document.querySelector("#tabla-ordenes tbody");
+      tbody.innerHTML = "";
+
+      ordenes.forEach(orden => {
+        const fila = document.createElement("tr");
+
+        const productos = orden.productos.map(p => `${p.nombre} (x${p.cantidad})`).join("<br>");
+
+        fila.innerHTML = `
+          <td>${orden.cliente}</td>
+          <td>${productos}</td>
+          <td>$${orden.total.toFixed(2)}</td>
+          <td>${orden.estado}</td>
+          <td>${new Date(orden.fecha).toLocaleString()}</td>
+          <td>
+            <select onchange="cambiarEstado('${orden._id}', this.value)">
+              <option value="Pendiente" ${orden.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
+              <option value="En producción" ${orden.estado === "En producción" ? "selected" : ""}>En producción</option>
+              <option value="Listo" ${orden.estado === "Listo" ? "selected" : ""}>Listo</option>
+              <option value="Entregado" ${orden.estado === "Entregado" ? "selected" : ""}>Entregado</option>
+            </select>
+          </td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    async function cambiarEstado(id, nuevoEstado) {
+      await fetch(`http://localhost:3000/api/ordenes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ estado: nuevoEstado })
+      });
+      cargarOrdenes();
+    }
+
+    cargarOrdenes();
+  </script>
+</body>
+</html>

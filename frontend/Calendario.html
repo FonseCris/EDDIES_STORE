@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eddie's Store - Calendario</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .icons {
+            position: relative;
+        }
+
+        .cart-icon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,20 +38,23 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="Catálogo.html">Tienda</a></li>
-                <li><a href="Personalización.html">Personalización</a></li>
+                <li><a href="catalogo.html">Tienda</a></li>
+                <li><a href="personalizacion.html">Personalización</a></li>
                 <li><a href="Promociones.html">Promociones</a></li>
                 <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
             </ul>
         </nav>
         <div class="user-info" id="greeting"></div>
         <div class="icons">
-            <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+            <div class="cart-icon-container">
+                <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+                <span id="cart-count">0</span>
+            </div>
             <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
             <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
         </div>
     </header>
-    
+
     <main>
         <div id="calendar-container" class="calendar">
             <div class="month">
@@ -73,6 +99,22 @@
         </div>
     </main>
 
+    <script>
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            const contador = document.getElementById("cart-count");
+            const cantidad = carrito.length;
+
+            if (cantidad > 0) {
+                contador.textContent = cantidad;
+                contador.style.display = "inline-block";
+            } else {
+                contador.style.display = "none";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+    </script>
     <script src="script.js"></script>
     <script src="calendar.js"></script>
 </body>
