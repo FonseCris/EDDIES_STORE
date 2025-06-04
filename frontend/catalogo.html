@@ -67,14 +67,27 @@
   </main>
 
   <script>
-    const API_URL = 'http://localhost:5001/api/products';
+    const productos = [
+      {
+        _id: "1",
+        nombre: "Taza personalizada",
+        descripcion: "Taza con tu diseño favorito",
+        precio: 10,
+        imagen: "imagenes/taza.jpg"
+      },
+      {
+        _id: "2",
+        nombre: "Cojín con diseño",
+        descripcion: "Cojín suave con diseño personalizado",
+        precio: 15,
+        imagen: "imagenes/cojin.jpg"
+      }
+    ];
+
     const contenedor = document.getElementById("productos");
 
-    async function cargarProductos() {
+    function cargarProductos() {
       try {
-        const res = await fetch(API_URL);
-        const productos = await res.json();
-
         productos.forEach(producto => {
           const card = document.createElement("div");
           card.className = "producto";
@@ -112,7 +125,7 @@
           localStorage.setItem("carrito", JSON.stringify(carrito));
 
           alert(`${nombre} se agregó al carrito.`);
-          actualizarContadorCarrito(); // ← actualización tras agregar
+          actualizarContadorCarrito();
         });
       });
     }
