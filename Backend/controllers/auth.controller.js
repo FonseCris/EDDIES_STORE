@@ -1,39 +1,88 @@
-const User = require('../models/user.model');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const User = require("../models/user.model");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+// REGISTRO
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { nombre, email, password, direccion, cumpleaños } = req.body;
 
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: 'El usuario ya existe' });
+    const userExistente = await User.findOne({ email });
+    if (userExistente) {
+      return res.status(400).json({ mensaje: "El email ya está registrado." });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ email, password: hashedPassword });
-    await newUser.save();
+    const nuevoUsuario = new User({
+      nombre,
+      email,
+      password: hashedPassword,
+      direccion,
+      cumpleaños
+    });
 
-    res.status(201).json({ message: 'Usuario registrado correctamente' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error en el servidor' });
+    await nuevoUsuario.save();
+
+    res.status(201).json({ mensaje: "Usuario registrado correctamente." });
+  } catch (error) {
+    res.status(500).json({ error: "Error en el registro" });
   }
 };
 
+// LOGIN
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Usuario no encontrado' });
+    const usuario = await User.findOne({ email });
+    if (!usuario) {
+      return res.status(400).json({ mensaje: "Credenciales inválidas" });
+    }
 
-    const validPass = await bcrypt.compare(password, user.password);
-    if (!validPass) return res.status(400).json({ message: 'Contraseña incorrecta' });
+    const match = await bcrypt.compare(password, usuario.password);
+    if (!match) {
+      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d"
+    });
 
-    res.json({ token });
-  } catch (err) {
-    res.status(500).json({ message: 'Error en el servidor' });
+    res.json({
+      mensaje: "Login exitoso",
+      token,
+      usuario: {
+        id: usuario._id,
+        nombre: usuario.nombre,
+        email: usuario.email
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error en el login" });
+  }
+};
+
+// PERFIL
+exports.obtenerPerfil = async (req, res) => {
+  try {
+    const usuario = await User.findById(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+    res.json(usuario);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener perfil" });
+  }
+};
+
+exports.actualizarPerfil = async (req, res) => {
+  try {
+    const usuarioActualizado = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    res.json(usuarioActualizado);
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar perfil" });
   }
 };

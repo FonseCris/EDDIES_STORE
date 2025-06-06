@@ -12,22 +12,18 @@
       border-collapse: collapse;
       background-color: #ffffffcc;
     }
-
     th, td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: center;
     }
-
     th {
       background-color: #000000;
       color: white;
     }
-
     select {
       padding: 5px;
     }
-
     .container {
       padding: 2rem;
     }
@@ -69,46 +65,71 @@
   </main>
 
   <script>
+    const API_BASE_URL = location.hostname === "localhost"
+      ? "http://localhost:5001"
+      : "https://eddies-store-backend.onrender.com";
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Debes iniciar sesión como administrador.");
+      window.location.href = "login.html";
+    }
+
     async function cargarOrdenes() {
-      const res = await fetch("http://localhost:3000/api/ordenes");
-      const ordenes = await res.json();
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/ordenes`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const ordenes = await res.json();
+        const tbody = document.querySelector("#tabla-ordenes tbody");
+        tbody.innerHTML = "";
 
-      const tbody = document.querySelector("#tabla-ordenes tbody");
-      tbody.innerHTML = "";
+        ordenes.forEach(orden => {
+          const fila = document.createElement("tr");
+          const productos = orden.productos.map(p => `${p.nombre} (x${p.cantidad || 1})`).join("<br>");
+          const cliente = orden.cliente?.nombre || orden.cliente?.email || "No definido";
 
-      ordenes.forEach(orden => {
-        const fila = document.createElement("tr");
-
-        const productos = orden.productos.map(p => `${p.nombre} (x${p.cantidad})`).join("<br>");
-
-        fila.innerHTML = `
-          <td>${orden.cliente}</td>
-          <td>${productos}</td>
-          <td>$${orden.total.toFixed(2)}</td>
-          <td>${orden.estado}</td>
-          <td>${new Date(orden.fecha).toLocaleString()}</td>
-          <td>
-            <select onchange="cambiarEstado('${orden._id}', this.value)">
-              <option value="Pendiente" ${orden.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
-              <option value="En producción" ${orden.estado === "En producción" ? "selected" : ""}>En producción</option>
-              <option value="Listo" ${orden.estado === "Listo" ? "selected" : ""}>Listo</option>
-              <option value="Entregado" ${orden.estado === "Entregado" ? "selected" : ""}>Entregado</option>
-            </select>
-          </td>
-        `;
-        tbody.appendChild(fila);
-      });
+          fila.innerHTML = `
+            <td>${cliente}</td>
+            <td>${productos}</td>
+            <td>$${orden.total.toFixed(2)}</td>
+            <td>${orden.estado || "Pendiente"}</td>
+            <td>${new Date(orden.fecha).toLocaleString()}</td>
+            <td>
+              <select onchange="cambiarEstado('${orden._id}', this.value)">
+                <option value="Pendiente" ${orden.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                <option value="En producción" ${orden.estado === "En producción" ? "selected" : ""}>En producción</option>
+                <option value="Listo" ${orden.estado === "Listo" ? "selected" : ""}>Listo</option>
+                <option value="Entregado" ${orden.estado === "Entregado" ? "selected" : ""}>Entregado</option>
+              </select>
+            </td>
+          `;
+          tbody.appendChild(fila);
+        });
+      } catch (error) {
+        console.error("Error al cargar órdenes:", error);
+        alert("Error al cargar órdenes del backend.");
+      }
     }
 
     async function cambiarEstado(id, nuevoEstado) {
-      await fetch(`http://localhost:3000/api/ordenes/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ estado: nuevoEstado })
-      });
-      cargarOrdenes();
+      try {
+        await fetch(`${API_BASE_URL}/api/ordenes/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ estado: nuevoEstado })
+        });
+        cargarOrdenes();
+      } catch (error) {
+        alert("Error al actualizar el estado.");
+        console.error(error);
+      }
     }
 
     cargarOrdenes();

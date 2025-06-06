@@ -1,97 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="image/png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eddie's Store</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Estilo para el contador del carrito */
-        .carrito-icono {
-            position: relative;
-            display: inline-block;
-        }
+  <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eddie's Store</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .carrito-icono {
+      position: relative;
+      display: inline-block;
+    }
 
-        .contador-carrito {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: bold;
-            line-height: 1;
-        }
-    </style>
+    .contador-carrito {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    #logout-btn {
+      background-color: #ff5050;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+
+    #logout-btn:hover {
+      background-color: #e60000;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Tienda</a></li>
-                <li><a href="personalizacion.html">Personalización</a></li>
-                <li><a href="Promociones.html">Promociones</a></li>
-                <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
-            </ul>
-        </nav>
-        <div class="user-info" id="greeting"></div>
-        <div class="icons">
-            <a href="Carrito.html" class="carrito-icono">
-                <img src="./imagenes/Carrito.png" alt="Carrito">
-                <span id="contador-carrito" class="contador-carrito">0</span>
-            </a>
-            <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
-            <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
-        </div>
-    </header>
-    <main>
-        <div class="carousel">
-            <div class="carousel-track">
-                <img src="./imagenes/gift1.jpeg" alt="Regalo 1">
-                <img src="./imagenes/gift2.jpeg" alt="Regalo 2">
-                <img src="./imagenes/gift 3.jpeg" alt="Regalo 3">
-                <img src="./imagenes/gifth 4.jpeg" alt="Regalo 4">
-                <img src="./imagenes/gifth 5.jpeg" alt="Regalo 5">
-            </div>
-        </div>
-        <section class="gift-section">
-            <div class="gift-category">
-                <img src="./imagenes/Ocaciones especiales.png" alt="Ocasiones Especiales">
-                <h2>Ocasiones Especiales</h2>
-                <p>Regalos únicos para celebraciones importantes como cumpleaños, aniversarios y más.</p>
-            </div>
-            <div class="gift-category">
-                <img src="./imagenes/Corporativo.png" alt="Regalos Corporativos">
-                <h2>Regalos Corporativos</h2>
-                <p>Perfectos para empresas que buscan obsequios personalizados para empleados o clientes.</p>
-            </div>
-            <div class="gift-category">
-                <img src="./imagenes/Tematicos.png" alt="Regalos Temáticos">
-                <h2>Regalos Temáticos</h2>
-                <p>Obsequios diseñados según tus pasiones: deportes, películas y mucho más.</p>
-            </div>
-        </section>
-    </main>
-    
-    <script>
-        // Actualiza contador de carrito al cargar
-        function actualizarContadorCarrito() {
-            const contador = document.getElementById("contador-carrito");
-            const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-            if (contador) {
-                contador.textContent = carrito.length;
-            }
-        }
+  <header>
+    <div class="logo">
+      <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="catalogo.html">Tienda</a></li>
+        <li><a href="personalizacion.html">Personalización</a></li>
+        <li><a href="Promociones.html">Promociones</a></li>
+        <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
+      </ul>
+    </nav>
+    <div class="user-info" id="greeting"></div>
+    <div class="icons">
+      <a href="Carrito.html" class="carrito-icono">
+        <img src="./imagenes/Carrito.png" alt="Carrito">
+        <span id="contador-carrito" class="contador-carrito">0</span>
+      </a>
+      <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
+      <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
+    </div>
+  </header>
 
-        document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
-    </script>
-    <script src="script.js"></script>
+  <main>
+    <div class="carousel">
+      <div class="carousel-track">
+        <img src="./imagenes/gift1.jpeg" alt="Regalo 1">
+        <img src="./imagenes/gift2.jpeg" alt="Regalo 2">
+        <img src="./imagenes/gift 3.jpeg" alt="Regalo 3">
+        <img src="./imagenes/gifth 4.jpeg" alt="Regalo 4">
+        <img src="./imagenes/gifth 5.jpeg" alt="Regalo 5">
+      </div>
+    </div>
+
+    <section class="gift-section">
+      <div class="gift-category">
+        <img src="./imagenes/Ocaciones especiales.png" alt="Ocasiones Especiales">
+        <h2>Ocasiones Especiales</h2>
+        <p>Regalos únicos para celebraciones importantes como cumpleaños, aniversarios y más.</p>
+      </div>
+      <div class="gift-category">
+        <img src="./imagenes/Corporativo.png" alt="Regalos Corporativos">
+        <h2>Regalos Corporativos</h2>
+        <p>Perfectos para empresas que buscan obsequios personalizados para empleados o clientes.</p>
+      </div>
+      <div class="gift-category">
+        <img src="./imagenes/Tematicos.png" alt="Regalos Temáticos">
+        <h2>Regalos Temáticos</h2>
+        <p>Obsequios diseñados según tus pasiones: deportes, películas y mucho más.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Mostrar saludo si está autenticado
+    document.addEventListener("DOMContentLoaded", () => {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+      const greeting = document.getElementById("greeting");
+
+      if (userId && token) {
+        fetch(`https://tu-backend.onrender.com/api/auth/perfil/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => res.json())
+        .then(user => {
+          greeting.innerHTML = `Hola, <strong>${user.nombre}</strong> <button id="logout-btn">Cerrar sesión</button>`;
+          document.getElementById("logout-btn").addEventListener("click", () => {
+            localStorage.clear();
+            location.href = "login.html";
+          });
+        })
+        .catch(() => {
+          greeting.innerHTML = "";
+        });
+      }
+    });
+
+    // Actualiza contador del carrito
+    function actualizarContadorCarrito() {
+      const contador = document.getElementById("contador-carrito");
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      if (contador) {
+        contador.textContent = carrito.length;
+        contador.style.display = carrito.length > 0 ? "inline-block" : "none";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>

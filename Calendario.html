@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="Icono logo">
+    <link rel="icon" href="./imagenes/Icono logo.png" sizes="16x16" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eddie's Store - Calendario</title>
@@ -28,94 +28,104 @@
             border-radius: 50%;
             display: none;
         }
+
+        form {
+            margin-top: 1rem;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 8px;
+            margin: 4px 0;
+            display: block;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 5px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 4px 0;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        #event-viewer {
+            margin-top: 2rem;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
+<header>
+    <div class="logo">
+        <img src="imagenes/Logo blanco.png" alt="Logo de Eddie's Store" width="100" height="50">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Tienda</a></li>
+            <li><a href="personalizacion.html">Personalización</a></li>
+            <li><a href="Promociones.html">Promociones</a></li>
+            <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
+        </ul>
+    </nav>
+    <div class="user-info" id="greeting"></div>
+    <div class="icons">
+        <div class="cart-icon-container">
+            <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
+            <span id="cart-count">0</span>
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Tienda</a></li>
-                <li><a href="personalizacion.html">Personalización</a></li>
-                <li><a href="Promociones.html">Promociones</a></li>
-                <li><a href="Sobre Nosotros.html">Sobre Nosotros</a></li>
-            </ul>
-        </nav>
-        <div class="user-info" id="greeting"></div>
-        <div class="icons">
-            <div class="cart-icon-container">
-                <a href="Carrito.html"><img src="./imagenes/Carrito.png" alt="Carrito"></a>
-                <span id="cart-count">0</span>
-            </div>
-            <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
-            <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
-        </div>
-    </header>
+        <a href="Calendario.html"><img src="./imagenes/Calendario.png" alt="Calendario"></a>
+        <a href="Usuario.html"><img src="./imagenes/Usuario.png" alt="Usuario"></a>
+    </div>
+</header>
 
-    <main>
-        <div id="calendar-container" class="calendar">
-            <div class="month">
-                <button id="prev-month">&lt;</button>
-                <h1>Abril 2025</h1>
-                <button id="next-month">&gt;</button>
-            </div>
-            <div class="days">
-                <div>Dom</div>
-                <div>Lun</div>
-                <div>Mar</div>
-                <div>Mié</div>
-                <div>Jue</div>
-                <div>Vie</div>
-                <div>Sáb</div>
-            </div>
-            <div class="dates">
-                <div class="inactive">30</div>
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>6</div>
-                <!-- Agrega más días -->
-            </div>
-        </div>
+<main>
+    <section class="calendar-section">
+        <h2>Programar Evento</h2>
+        <form id="form-evento">
+            <label for="titulo">Título del evento:</label>
+            <input type="text" id="titulo" name="titulo" required>
 
-        <div id="birthday-scheduler">
-            <h2>Programar Evento</h2>
-            <form id="birthday-form">
-                <input type="date" id="birthday-date" required>
-                <input type="text" id="birthday-name" placeholder="Nombre" required>
-                <button type="submit">Agregar</button>
-            </form>
-            <ul id="birthday-list"></ul>
-        </div>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
 
-        <div id="event-viewer">
-            <h2>Eventos Programados</h2>
-            <ul id="event-list"></ul>
-        </div>
-    </main>
+            <button type="submit">Guardar</button>
+        </form>
 
-    <script>
-        function actualizarContadorCarrito() {
-            const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-            const contador = document.getElementById("cart-count");
-            const cantidad = carrito.length;
+        <h3>Mis Eventos Guardados</h3>
+        <ul id="lista-eventos"></ul>
+    </section>
+</main>
 
-            if (cantidad > 0) {
-                contador.textContent = cantidad;
-                contador.style.display = "inline-block";
-            } else {
-                contador.style.display = "none";
-            }
+<script>
+    function actualizarContadorCarrito() {
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        const contador = document.getElementById("cart-count");
+        const cantidad = carrito.length;
+
+        if (cantidad > 0) {
+            contador.textContent = cantidad;
+            contador.style.display = "inline-block";
+        } else {
+            contador.style.display = "none";
         }
+    }
 
-        document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
-    </script>
-    <script src="script.js"></script>
-    <script src="calendar.js"></script>
+    document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+</script>
+<script src="calendario.js"></script>
 </body>
 </html>
