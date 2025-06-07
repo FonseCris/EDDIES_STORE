@@ -1,28 +1,29 @@
-const API_URL = 'https://eddies-backend.onrender.com'; // ✅ URL real del backend
+const API_URL = 'https://eddies-backend.onrender.com';
 
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const correo = document.getElementById('login-email').value;
-  const contraseña = document.getElementById('login-password').value;
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
 
   try {
-    const response = await fetch(`${API_URL}/api/usuarios/login`, {
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ correo, contraseña })
+      body: JSON.stringify({ email, password })
     });
 
     const data = await response.json();
 
     if (response.ok) {
       alert('✅ Inicio de sesión exitoso');
-      localStorage.setItem('token', data.token); // Guarda el token si tu backend lo devuelve
-      window.location.href = 'catalogo.html'; // Redirige al catálogo
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data.userId); // si el backend lo devuelve
+      window.location.href = 'catalogo.html';
     } else {
-      alert(`❌ Error: ${data.msg || 'Credenciales incorrectas'}`);
+      alert(`❌ Error: ${data.msg || data.message || 'Credenciales incorrectas'}`);
     }
   } catch (err) {
     console.error('Error en el login:', err);

@@ -9,7 +9,8 @@ const path = require("path");
 // Importar rutas
 const ordenesRouter = require("./routes/ordenes");
 const productosRouter = require("./routes/products");
-const usersRouter = require("./routes/users"); // ✅ Ruta para perfil de usuario
+const usersRouter = require("./routes/users");       // ✅ Ruta para perfil de usuario
+const authRoutes = require("./routes/auth.routes");  // ✅ Ruta para login y registro
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -28,20 +29,18 @@ app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Conectar a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("✅ Conectado a MongoDB Atlas"))
-.catch(err => {
-  console.error("❌ Error al conectar a MongoDB:", err.message);
-  process.exit(1); // Detener servidor si la conexión falla
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Conectado a MongoDB Atlas"))
+  .catch(err => {
+    console.error("❌ Error al conectar a MongoDB:", err.message);
+    process.exit(1);
+  });
 
 // Rutas API
 app.use("/api/ordenes", ordenesRouter);
 app.use("/api/products", productosRouter);
-app.use("/api/users", usersRouter); // ✅ Ruta agregada para usuarios
+app.use("/api/users", usersRouter);     // 🧑 Perfil de usuario
+app.use("/api/auth", authRoutes);       // 🔐 Login, registro, perfil
 
 // Ruta raíz
 app.get("/", (req, res) => {
