@@ -9,6 +9,7 @@ const path = require("path");
 // Importar rutas
 const ordenesRouter = require("./routes/ordenes");
 const productosRouter = require("./routes/products");
+const usersRouter = require("./routes/users"); // ✅ Ruta para perfil de usuario
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -40,6 +41,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Rutas API
 app.use("/api/ordenes", ordenesRouter);
 app.use("/api/products", productosRouter);
+app.use("/api/users", usersRouter); // ✅ Ruta agregada para usuarios
 
 // Ruta raíz
 app.get("/", (req, res) => {

@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function cargarEventos() {
     try {
-      const res = await fetch("https://tu-backend.onrender.com/api/eventos", {
+      const res = await fetch("https://eddies-backend.onrender.com/api/eventos", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      const res = await fetch("https://tu-backend.onrender.com/api/eventos", {
+      const res = await fetch("https://eddies-backend.onrender.com/api/eventos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

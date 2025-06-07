@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch("https://tu-backend.onrender.com/api/auth/register", {
+      const response = await fetch("https://eddies-backend.onrender.com/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(usuario)
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Usuario registrado con éxito");
         window.location.href = "login.html"; // si luego creas una página de login
       } else {
-        alert("Error: " + data.mensaje || data.error);
+        alert("Error: " + (data.mensaje || data.error));
       }
     } catch (err) {
       console.error("Error al registrar:", err);
